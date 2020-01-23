@@ -14,6 +14,8 @@ var proxyMiddleware = require('http-proxy-middleware')
 var portfinder = require('portfinder')
 var webpackConfig = require('./webpack.dev.conf')
 var utils = require('./utils')
+var rm = require('rimraf')
+var chalk = require('chalk')
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
@@ -28,8 +30,12 @@ var compiler = webpack(webpackConfig)
 if (process.env.PLATFORM === 'swan') {
   utils.writeFrameworkinfo()
 }
-
-
+// 删除dist文件夹
+rm(path.join(config.build.assetsRoot, '*'), err => {
+  if (err) {
+    console.log(err)
+  }
+})
 // var devMiddleware = require('webpack-dev-middleware')(compiler, {
 //   publicPath: webpackConfig.output.publicPath,
 //   quiet: true
