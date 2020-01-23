@@ -15,48 +15,92 @@
             circular
             indicator-color="rgba(255,255,255,.6)"
             indicator-active-color="#fff">
-      <block v-for="(item,index) in 3"
-             :key="index">
+      <block v-for="(item,idx) in swiperList"
+             :key="idx">
         <swiper-item>
-          <image src="https://api.zbztb.cn/pyg/banner1.png" />
+          <image :src="item.image_src" />
         </swiper-item>
       </block>
     </swiper>
     <!-- 分类category -->
     <div class="category">
       <div class="category-item"
-           v-for="item in 4"
-           :key="item">
-        <image src="https://api.zbztb.cn/pyg/icon_index_nav_2@2x.png" />
-
+           v-for="(item,idx) in categoryList"
+           :key="idx">
+        <image :src="item.image_src" />
       </div>
     </div>
     <!-- 楼层floor -->
     <div class="floor"
-         v-for="(item,idx) in 3"
-         :key="idx">
+         v-for="(item,i) in floorList"
+         :key="i">
       <!-- 标题图片 -->
       <div class="floor-title">
-        <image src="https://api.zbztb.cn/pyg/pic_floor01_title.png" />
+        <image :src="item.floor_title.image_src" />
       </div>
       <!-- 产品 -->
       <div class="product">
         <div class="product-left">
-          <image src="https://api.zbztb.cn/pyg/pic_floor01_1@2x.png" />
+          <image :src="item.product_list[0].image_src" />
         </div>
         <div class="product-right">
-          <div v-for="item in 4"
-               :key="item">
-            <image src="https://api.zbztb.cn/pyg/pic_floor01_5@2x.png" />
-          </div>
+          <block v-for="(ele,index) in item.product_list"
+                 :key="index">
+            <div v-if="index>0">
+              <image :src="ele.image_src" />
+            </div>
+          </block>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
-export default {}
+// 导入api接口
+import { apiGetSwiperData, apiGetCatitems, apiGetFloorData } from '../../utils/homeApi'
+
+export default {
+  data () {
+    return {
+      swiperList: [], // 轮播图列表
+      categoryList: [], // 分类列表
+      floorList: [] // 楼层列表
+    }
+  },
+  created () {
+    this.getSwiperData()
+    this.getCatitems()
+    this.getFloorList()
+  },
+  methods: {
+    // 获取轮播图列表
+    getSwiperData () {
+      apiGetSwiperData().then((res) => {
+        if (res.data.meta.status === 200) {
+          this.swiperList = res.data.message
+        }
+      })
+    },
+    // 获取分类列表
+    getCatitems () {
+      apiGetCatitems().then((res) => {
+        if (res.data.meta.status === 200) {
+          this.categoryList = res.data.message
+        }
+      })
+    },
+    // 获取楼层列表
+    getFloorList () {
+      apiGetFloorData().then((res) => {
+        if (res.data.meta.status === 200) {
+          this.floorList = res.data.message
+        }
+      })
+    }
+  }
+}
 </script>
 
 <style lang='less'>
