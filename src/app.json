@@ -3,13 +3,16 @@
     "pages/home/main",
     "pages/category/main",
     "pages/cart/main",
-    "pages/me/main"
+    "pages/me/main",
+    "pages/goodsList/main",
+    "pages/search/main"
   ],
   "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#eb4450",
     "navigationBarTitleText": "wechat",
-    "navigationBarTextStyle": "white"
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "color": "#333",

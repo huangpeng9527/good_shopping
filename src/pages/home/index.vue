@@ -1,13 +1,7 @@
 <template>
   <div>
-    <!-- header搜索栏目 -->
-    <div class="header">
-      <div class="search">
-        <icon type="search"
-              size="18" />
-        <span>搜索</span>
-      </div>
-    </div>
+    <!-- searchLink组件 -->
+    <SearchLink />
     <!-- swiper -->
     <swiper class="swiper"
             indicator-dots
@@ -60,8 +54,12 @@
 <script>
 // 导入api接口
 import { apiGetSwiperData, apiGetCatitems, apiGetFloorData } from '../../utils/homeApi'
-
+// 导入searchLink组件
+import SearchLink from '../../components/SearchLink'
 export default {
+  components: {
+    SearchLink
+  },
   data () {
     return {
       swiperList: [], // 轮播图列表
@@ -104,28 +102,6 @@ export default {
 </script>
 
 <style lang='less'>
-/* header */
-.header {
-  height: 100rpx;
-  background-color: #eb4450;
-  padding: 0 16rpx;
-  display: flex;
-  align-items: center;
-  .search {
-    width: 100%;
-    height: 60rpx;
-    background-color: #fff;
-    border-radius: 8rpx;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #bbb;
-    font-size: 14px;
-    span {
-      margin-left: 16rpx;
-    }
-  }
-}
 /* swiper */
 .swiper image {
   width: 100%;
