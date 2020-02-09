@@ -31,9 +31,7 @@
     <!--  goods-->
     <scroll-view class="goods-list"
                  scroll-y="true"
-                 @scrolltolower="scrollBottom"
-                 refresher-enabled
-                 @refresherpulling="refresh">
+                 @scrolltolower="scrollBottom">
       <div class="goods-item"
            v-for="(item,index) in goodsList"
            :key="index">
@@ -67,6 +65,9 @@ export default {
     }
   },
   onLoad (options) {
+    this.goodsList = []
+    this.pagenum = 1
+    this.prompt = '加载中'
     wx.showLoading({
       title: '商品加载中', // 提示的内容,
       mask: true // 显示透明蒙层，防止触摸穿透,
@@ -122,9 +123,6 @@ export default {
       // 渲染列表
       wx.showNavigationBarLoading()
       this.getGoodsList()
-    },
-    refresh () {
-      console.log('refresh')
     }
   }
 
