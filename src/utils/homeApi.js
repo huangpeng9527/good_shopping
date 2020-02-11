@@ -8,7 +8,9 @@ function apiGetSwiperData () {
       url: `${BASE_URL}/api/public/v1/home/swiperdata`, // 开发者服务器接口地址",
       method: 'GET',
       success: res => {
-        resolve(res)
+        if (res.data.meta.status === 200) {
+          resolve(res.data.message)
+        }
       },
       fail: err => {
         reject(err)
@@ -23,7 +25,9 @@ function apiGetCatitems () {
       url: `${BASE_URL}/api/public/v1/home/catitems`,
       method: 'GET',
       success: res => {
-        resolve(res)
+        if (res.data.meta.status === 200) {
+          resolve(res.data.message)
+        }
       },
       fail: err => {
         reject(err)
@@ -38,7 +42,9 @@ function apiGetFloorData () {
       url: `${BASE_URL}/api/public/v1/home/floordata`,
       method: 'GET',
       success: res => {
-        resolve(res)
+        if (res.data.meta.status === 200) {
+          resolve(res.data.message)
+        }
       },
       fail: err => {
         reject(err)

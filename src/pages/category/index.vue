@@ -65,7 +65,7 @@ export default {
       // 获取数据
       apiGetCategoryData().then(res => {
         // 获取总数据
-        this.categoryData = res.data.message
+        this.categoryData = res
         // 获取分类详情数据
         this.categoryDetail = this.categoryData[0].children
         // 隐藏loading
@@ -81,7 +81,7 @@ export default {
     toGoodsList (data) {
       console.log(data)
       wx.navigateTo({
-        url: `/pages/goodsList/main?value=${data.cat_name}`,
+        url: `/pages/goodsList/main?queryValue=${data.cat_name}`,
         success (res) {
           // 两种方法传递参数 一种是 url拼接参数
           // 另一种是 success回调函数中通过 res.eventChannel.emit('事件名'.{数据名:数据值}) 来传递

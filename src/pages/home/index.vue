@@ -76,25 +76,20 @@ export default {
     // 获取轮播图列表
     getSwiperData () {
       apiGetSwiperData().then((res) => {
-        if (res.data.meta.status === 200) {
-          this.swiperList = res.data.message
-        }
+        console.log(res)
+        this.swiperList = res
       })
     },
     // 获取分类列表
     getCatitems () {
       apiGetCatitems().then((res) => {
-        if (res.data.meta.status === 200) {
-          this.categoryList = res.data.message
-        }
+        this.categoryList = res
       })
     },
     // 获取楼层列表
     getFloorList () {
       apiGetFloorData().then((res) => {
-        if (res.data.meta.status === 200) {
-          this.floorList = res.data.message
-        }
+        this.floorList = res
       })
     }
   }

@@ -39,20 +39,30 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/goodslist/main",
+					"name": "商品列表",
 					"pathName": "pages/goodsList/main",
+					"query": "query=小米",
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/search/main",
+					"id": 1,
+					"name": "搜索",
 					"pathName": "pages/search/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "分类",
+					"pathName": "pages/category/main",
+					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "pages/category/main",
-					"pathName": "pages/category/main",
+					"name": "商品详情",
+					"pathName": "pages/goodsDetail/main",
+					"query": "goodsId=57444",
 					"scene": null
 				}
 			]

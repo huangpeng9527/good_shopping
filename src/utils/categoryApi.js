@@ -8,7 +8,9 @@ function apiGetCategoryData () {
       method: 'GET',
       success: res => {
         if (res.data.meta.status === 200) {
-          resolve(res)
+          if (res.data.meta.status === 200) {
+            resolve(res.data.message)
+          }
         }
       },
       fail: err => {
