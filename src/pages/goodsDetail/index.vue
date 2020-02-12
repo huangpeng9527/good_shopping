@@ -59,11 +59,13 @@
         <span>联系客服</span>
         <button open-type="contact"></button>
       </div>
-      <div class="icon-text">
+      <div class="icon-text"
+           @click="toCart">
         <span class="iconfont icon-cart"></span>
         <span>购物车</span>
       </div>
-      <div class="btn add-cart-btn">加入购物车</div>
+      <div class="btn add-cart-btn"
+           @click="addToCart">加入购物车</div>
       <div class="btn buy-btn">立即购买</div>
     </div>
   </div>
@@ -81,6 +83,7 @@ export default {
   },
   onLoad (options) {
     this.getGoodsDetail(options.goodsId)
+    console.log(options.goodsId)
   },
   // 自定义转发内容
   onShareAppMessage () {
@@ -92,7 +95,6 @@ export default {
   methods: {
     async getGoodsDetail (goodsId) {
       let res = await apiGetGoodsDetail(goodsId)
-      console.log(res)
       this.goodsDetail = res
     },
     // 图片预览
@@ -102,6 +104,25 @@ export default {
         urls: preImgs, // 需要预览的图片链接列表,
         current: preImgs[index]
       })
+    },
+    // 加入购物车
+    addToCart () {
+      // 获取购物车对象
+      let carts = wx.getStorageSync('carts') || {}
+      // 获取goodsId
+      let goodsId = this.goodsDetail.goods_id
+      // 将数据存入购物车对象
+      // 如果这个对象存在则num(num表示商品数量)的值加1,不存在则为1
+      carts[goodsId] = {
+        num: carts[goodsId] ? carts[goodsId].num + 1 : 1,
+        checked: true
+      }
+      // 将数据存入本地
+      wx.setStorageSync('carts', carts)
+    },
+    // 跳转到购物车界面
+    toCart () {
+      wx.switchTab({ url: '/pages/cart/main' })
     }
   }
 
