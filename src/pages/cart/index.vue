@@ -17,7 +17,8 @@
           <div class="btm">
             <span class="price">￥<span>{{item.goods_price}}</span>.00</span>
             <div class="goods-num">
-              <button @click="minus(index)">-</button>
+              <button :disabled="item.num===1"
+                      @click="minus(index)">-</button>
               <span>{{item.num}}</span>
               <button @click="add(index)">+</button>
             </div>
@@ -72,9 +73,6 @@ export default {
       wx.setStorageSync('carts', this.carts)
     },
     minus (index) {
-      if (this.cartsList[index].num === 1) {
-        return
-      }
       let goodsId = this.cartsList[index].goods_id
       this.cartsList[index].num--
       this.carts[goodsId].num--
