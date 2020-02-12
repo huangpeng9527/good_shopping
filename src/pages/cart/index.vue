@@ -37,7 +37,7 @@
       </div>
 
       <div class="price">
-        <p>合计:<span class="num">￥{{settlement.price}}</span></p>
+        <p>合计:<span class="num">￥{{settlement.totalPrice}}</span></p>
         <p class="info">包含运费</p>
       </div>
       <div class="account-btn">结算({{settlement.num}})</div>
@@ -84,6 +84,7 @@ export default {
     }
   },
   computed: {
+    // 是否全选
     isAll: {
       get () {
         return this.cartsList.every((item) => {
@@ -96,16 +97,17 @@ export default {
         })
       }
     },
+    // 结算数量和金额
     settlement () {
       return this.cartsList.reduce((obj, item) => {
         if (item.checked) {
-          obj.price = obj.price + item.goods_price * item.num
+          obj.totalPrice = obj.totalPrice + item.goods_price * item.num
           obj.num = obj.num + item.num
           return obj
         } else {
           return obj
         }
-      }, { price: 0, num: 0 })
+      }, { totalPrice: 0, num: 0 }) // price总金额, num数量
     }
   }
 }
