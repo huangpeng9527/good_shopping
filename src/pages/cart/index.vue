@@ -56,12 +56,14 @@ export default {
   methods: {
     async getCartsList () {
       let goodsIds = Object.keys(this.carts).join()
-      console.log(goodsIds)
-      let res = await apiGetCartsList(goodsIds)
-      this.cartsList = res.map((item) => {
-        item.num = this.carts[item.goods_id].num
-        return item
-      })
+      if (goodsIds) {
+        let res = await apiGetCartsList(goodsIds)
+        this.cartsList = res.map((item) => {
+          item.num = this.carts[item.goods_id].num
+          item.checked = this.carts[item.goods_id].checked
+          return item
+        })
+      }
     },
     add (index) {
       let goodsId = this.cartsList[index].goods_id

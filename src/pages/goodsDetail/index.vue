@@ -119,6 +119,10 @@ export default {
       }
       // 将数据存入本地
       wx.setStorageSync('carts', carts)
+      wx.showToast({
+        title: '添加成功', // 提示的内容,
+        icon: 'success' // 图标,
+      })
     },
     // 跳转到购物车界面
     toCart () {
