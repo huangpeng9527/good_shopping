@@ -71,6 +71,13 @@
 					"pathName": "pages/cart/main",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": 5,
+					"name": "我的",
+					"pathName": "pages/me/main",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

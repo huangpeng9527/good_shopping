@@ -20,9 +20,9 @@
             <span class="price">￥<span>{{item.goods_price}}</span>.00</span>
             <div class="goods-num">
               <button :disabled="item.num===1"
-                      @click="minus(index)">-</button>
+                      @click="item.num--">-</button>
               <span>{{item.num}}</span>
-              <button @click="add(index)">+</button>
+              <button @click="item.num++">+</button>
             </div>
           </div>
         </div>
@@ -69,18 +69,6 @@ export default {
           return item
         })
       }
-    },
-    add (index) {
-      let goodsId = this.cartsList[index].goods_id
-      this.cartsList[index].num++
-      this.carts[goodsId].num++
-      wx.setStorageSync('carts', this.carts)
-    },
-    minus (index) {
-      let goodsId = this.cartsList[index].goods_id
-      this.cartsList[index].num--
-      this.carts[goodsId].num--
-      wx.setStorageSync('carts', this.carts)
     }
   },
   computed: {
@@ -101,15 +89,27 @@ export default {
     settlement () {
       return this.cartsList.reduce((obj, item) => {
         if (item.checked) {
-          obj.totalPrice = obj.totalPrice + item.goods_price * item.num
-          obj.num = obj.num + item.num
+          obj.totalPrice += item.goods_price * item.num
+          obj.num += item.num
           return obj
         } else {
           return obj
         }
-      }, { totalPrice: 0, num: 0 }) // price总金额, num数量
+      }, { totalPrice: 0, num: 0 }) // totalPrice总金额, num数量
     }
+  },
+  // 隐藏保存carts
+  onHide () {
+    let carts = this.cartsList.reduce((obj, item) => {
+      obj[item.goods_id] = {
+        num: item.num,
+        checked: item.checked
+      }
+      return obj
+    }, {})
+    wx.setStorageSync('carts', carts)
   }
+
 }
 </script>
 
