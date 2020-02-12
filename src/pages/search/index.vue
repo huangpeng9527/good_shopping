@@ -37,7 +37,6 @@ export default {
     // 触发搜索方法,跳转到goodsList
     toGoodsList (data) {
       let _historyList = this.historyList
-      this.query = data
       // 将搜索关键字添加到头部
       _historyList.unshift(data)
       // 数组去重
