@@ -9,7 +9,9 @@
       <li class="goods-item"
           v-for="(item,index) in cartsList"
           :key="index">
-        <span class="iconfont icon-checked"></span>
+        <span class="iconfont"
+              :class="item.checked ? 'icon-check' : 'icon-unchecked'"
+              @click="item.checked=!item.checked"></span>
         <img :src="item.goods_small_logo"
              alt="">
         <div class="right">
@@ -28,15 +30,17 @@
     </ul>
     <div class="account">
       <div class="select-all">
-        <span class="iconfont icon-checked"></span>
+        <span class="iconfont"
+              :class="isAll ? 'icon-check' : 'icon-unchecked'"
+              @click="isAll=!isAll"></span>
         <span>全选</span>
       </div>
 
       <div class="price">
-        <p>合计:<span class="num">￥1000.00</span></p>
+        <p>合计:<span class="num">￥{{settlement.price}}</span></p>
         <p class="info">包含运费</p>
       </div>
-      <div class="account-btn">结算(1000)</div>
+      <div class="account-btn">结算({{settlement.num}})</div>
     </div>
   </div>
 </template>
@@ -77,6 +81,31 @@ export default {
       this.cartsList[index].num--
       this.carts[goodsId].num--
       wx.setStorageSync('carts', this.carts)
+    }
+  },
+  computed: {
+    isAll: {
+      get () {
+        return this.cartsList.every((item) => {
+          return item.checked
+        })
+      },
+      set (newValue) {
+        this.cartsList.forEach((item) => {
+          item.checked = newValue
+        })
+      }
+    },
+    settlement () {
+      return this.cartsList.reduce((obj, item) => {
+        if (item.checked) {
+          obj.price = obj.price + item.goods_price * item.num
+          obj.num = obj.num + item.num
+          return obj
+        } else {
+          return obj
+        }
+      }, { price: 0, num: 0 })
     }
   }
 }
