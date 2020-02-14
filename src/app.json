@@ -6,7 +6,10 @@
     "pages/me/main",
     "pages/goodsList/main",
     "pages/goodsDetail/main",
-    "pages/search/main"
+    "pages/search/main",
+    "pages/login/main",
+    "pages/pay/main",
+    "pages/order/main"
   ],
   "window": {
     "backgroundTextStyle": "dark",

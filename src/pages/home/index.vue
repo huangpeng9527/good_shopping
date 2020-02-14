@@ -76,7 +76,6 @@ export default {
     // 获取轮播图列表
     getSwiperData () {
       apiGetSwiperData().then((res) => {
-        console.log(res)
         this.swiperList = res
       })
     },

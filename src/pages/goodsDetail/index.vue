@@ -66,7 +66,8 @@
       </div>
       <div class="btn add-cart-btn"
            @click="addToCart">加入购物车</div>
-      <div class="btn buy-btn">立即购买</div>
+      <div class="btn buy-btn"
+           @click="toPay">立即购买</div>
     </div>
   </div>
 </template>
@@ -96,6 +97,21 @@ export default {
     async getGoodsDetail (goodsId) {
       let res = await apiGetGoodsDetail(goodsId)
       this.goodsDetail = res
+    },
+    toPay () {
+      // 先判断是否登录
+      let token = wx.getStorageSync('best_buy_token')
+      if (!token) {
+        // 跳转到登录页面
+        wx.showToast({
+          title: '请先登录', // 提示的内容
+          icon: 'none' // 图标
+        })
+        wx.navigateTo({ url: '/pages/login/main' })
+        return
+      }
+      // 如果登录跳转到pay页面
+      wx.navigateTo({ url: '/pages/pay/main?goodsId=' + this.goodsDetail.goods_id })
     },
     // 图片预览
     preImg (index) {

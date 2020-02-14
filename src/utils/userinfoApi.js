@@ -1,12 +1,17 @@
 import BASE_URL from './BASEURL'
 
-function apiGetCartsList (goodsIds) {
+// 获取分类数据
+function apiGetUserInfo ({ code, encryptedData, iv, rawData, signature }) {
   return new Promise((resolve, reject) => {
     wx.request({
-      url: `${BASE_URL}/api/public/v1/goods/goodslist`, // 开发者服务器接口地址",
-      method: 'GET',
+      url: `${BASE_URL}/api/public/v1/users/wxlogin`, // 开发者服务器接口地址",
+      method: 'post',
       data: {
-        goods_ids: goodsIds
+        code,
+        encryptedData,
+        iv,
+        rawData,
+        signature
       },
       success: res => {
         if (res.data.meta.status === 200) {
@@ -22,4 +27,4 @@ function apiGetCartsList (goodsIds) {
   })
 }
 
-export { apiGetCartsList }
+export { apiGetUserInfo }

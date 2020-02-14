@@ -40,7 +40,8 @@
         <p>合计:<span class="num">￥{{settlement.totalPrice}}</span></p>
         <p class="info">包含运费</p>
       </div>
-      <div class="account-btn">结算({{settlement.num}})</div>
+      <div class="account-btn"
+           @click="toPay">结算({{settlement.num}})</div>
     </div>
   </div>
 </template>
@@ -69,6 +70,29 @@ export default {
           return item
         })
       }
+    },
+    // 去往支付结算页面
+    toPay () {
+      // 判断购物车是否勾选了商品
+      if (!this.settlement.num) {
+        wx.showToast({
+          title: '请先选择商品', // 提示的内容,
+          icon: 'none'
+        })
+        return
+      }
+      // 判断是否登录
+      let token = wx.getStorageSync('best_buy_token')
+      if (!token) {
+        // 跳转到登录页面
+        wx.showToast({
+          title: '请先登录', // 提示的内容
+          icon: 'none' // 图标
+        })
+        wx.navigateTo({ url: '/pages/login/main' })
+        return
+      }
+      wx.navigateTo({ url: '/pages/pay/main' })
     }
   },
   computed: {
